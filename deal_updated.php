@@ -25,9 +25,11 @@ $result = json_decode($output, true);
 
 $values_per_org = [];
 
-foreach ($result['data'] as $key => $deal) {
-    $org_name = $deal['org_id']['name'];
-    $values_per_org[$org_name] = !empty($values_per_org[$org_name])?$values_per_org[$org_name] + $deal['value']:$deal['value'];
+if(!empty($result['data'])) {
+    foreach ($result['data'] as $key => $deal) {
+        $org_name = $deal['org_id']['name'];
+        $values_per_org[$org_name] = !empty($values_per_org[$org_name]) ? $values_per_org[$org_name] + $deal['value'] : $deal['value'];
+    }
 }
 
 $f = fopen('data.json', 'w');
